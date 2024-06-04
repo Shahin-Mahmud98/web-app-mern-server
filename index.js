@@ -1,9 +1,10 @@
+require('dotenv').config()
 const express = require("express")
 const cors = require("cors")
 const jwt = require("jsonwebtoken");
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express()
-const port = 5000
+const port = process.env.PORT;
 
 
 app.use(cors());
@@ -77,7 +78,7 @@ async function run() {
       const result = await propertiesCollection.insertOne(propertyData);
       res.send(result);
     })
-    
+
     app.get("/properties", async(req,res)=>{
       const propertyData = propertiesCollection.find();
       const result = await propertyData.toArray();
@@ -104,7 +105,7 @@ async function run() {
     );
       
       res.send(result);
-    })
+    });
 
 
     app.delete("/properties/:id",verifyToken, async(req,res)=>{
