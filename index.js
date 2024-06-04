@@ -77,6 +77,7 @@ async function run() {
       const result = await propertiesCollection.insertOne(propertyData);
       res.send(result);
     })
+    
     app.get("/properties", async(req,res)=>{
       const propertyData = propertiesCollection.find();
       const result = await propertyData.toArray();
