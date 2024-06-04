@@ -1,7 +1,6 @@
 const express = require('express')
 const cors = require('cors')
 const jwt = require("jsonwebtoken");
-const mongoose = require('mongoose');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express()
 const port = 5000
@@ -27,34 +26,23 @@ function createToken(user) {
 
 // middleware function
 
-// function verifyToken(req,res,next){
-// const authToken = req.headers.authorization.split("")[1];
-// const verify = jwt.verify(token,"secret")
-// req.user = verify.email;
-// if (!verify?.email) {
-//   return res.send('you are not authorised')
-// }
-// // console.log(verify);
 
-
-//   next()
-// }
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   
   if (authHeader) {
-      const token = authHeader.split(' ')[1]; // Bearer <token>
+      const token = authHeader.split(' ')[1]; 
       
       jwt.verify(token, 'secret', (err, user) => {
           if (err) {
-              return res.sendStatus(403); // Forbidden
+              return res.sendStatus(403); 
           }
           req.user = user;
           next();
       });
   } else {
-      res.sendStatus(401); // Unauthorized
+      res.sendStatus(401); 
   }
 };
 
@@ -175,15 +163,13 @@ async function run() {
     });
 
     
-    // await client.db("admin").command({ ping: 1 });
+    
     console.log("Web DB Connected!");
   } finally {
-    
-    // await client.close();
+   
   }
 }
 run().catch(console.dir);
-
 
 
 
