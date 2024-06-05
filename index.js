@@ -121,7 +121,7 @@ async function run() {
 
     // user
 
-    app.post("/user",verifyToken ,async (req,res)=>{
+    app.post("/user" ,async (req,res)=>{
       const user = req.body;
 
       const token = createToken(user);
